@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { Drawer as VaulDrawer } from 'vaul';
-import { Play, Pause, X, Mail, Send, Disc } from 'lucide-react';
+import { Play, Pause, X, Mail, Send, Disc, Music, Headphones } from 'lucide-react';
 
 const CardFlip = ReactCardFlip.default || ReactCardFlip;
 export default function App() {
@@ -183,6 +183,7 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
+  const [isIpodExpanded, setIsIpodExpanded] = useState(false);
   // Form State
   const [formName, setFormName] = useState('');
   const [formEmail, setFormEmail] = useState('');
@@ -295,15 +296,31 @@ export default function App() {
   };
   return (
     <div className="font-sans antialiased text-foreground bg-background min-h-screen relative">
-      {/* 2. Hanging iPod Music Player Widget */}
+      {/* 2. Hanging iPod Music Player Widget (Desktop full-size, Mobile play/pause toggle button) */}
+      {/* Compact Circular Play Button for Mobile (Directly controls play/pause, no drawer) */}
+      <button 
+        onClick={togglePlay}
+        className="fixed bottom-6 right-6 z-50 size-14 rounded-full bg-[#1c1213] border-[4px] border-white shadow-[6px_6px_0px_#000] hover:shadow-[6px_6px_0px_#ee304a] active:scale-95 flex items-center justify-center cursor-pointer select-none transition-all duration-300 md:hidden pointer-events-auto"
+        title={isPlaying ? "Pause music" : "Play music"}
+      >
+        {isPlaying ? (
+          <Pause className="size-5 text-[#ee304a] fill-[#ee304a]" />
+        ) : (
+          <Play className="size-5 text-white fill-white ml-0.5" />
+        )}
+      </button>
+
+      {/* Full iPod Player Card (Only visible on desktop) */}
       <div 
         onClick={togglePlay}
-        className="fixed bottom-6 right-6 z-50 flex flex-col items-center cursor-pointer pointer-events-auto md:bottom-8 md:right-8"
+        className="fixed bottom-8 right-8 z-50 flex-col items-center pointer-events-auto hidden md:flex"
       >
-        {/* Short Web Strand Line */}
-        <div className="w-[1.5px] h-16 bg-foreground/30 relative">
+
+        {/* Short Web Strand Line (Hidden on mobile to save vertical space) */}
+        <div className="hidden md:block w-[1.5px] h-16 bg-foreground/30 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-primary rotate-45"></div>
         </div>
+
         {/* iPod Card - Classic Rounded Silhouette */}
         <div className="w-40 h-[250px] bg-[#1c1213] border-[6.5px] border-white rounded-[24px] shadow-[8px_8px_0px_#000] p-3 flex flex-col select-none relative overflow-hidden transition-all duration-300 mt-2 hover:shadow-[8px_8px_0px_#ee304a] z-10">
           {/* In-world halftone background pattern at bottom of the body */}
@@ -377,7 +394,7 @@ export default function App() {
         </div>
       </div>
       {/* 3. Hanging Spider-Woman with Hover Swing */}
-      <div className="absolute top-0 left-4 md:left-12 lg:left-20 z-30 hanging-spider pointer-events-auto w-[18vw] sm:w-[21vw] md:w-[24vw] max-w-[290px] min-w-[125px]">
+      <div className="absolute top-0 left-4 md:left-12 lg:left-20 z-30 hanging-spider pointer-events-auto w-[24vw] sm:w-[28vw] md:w-[32vw] max-w-[382px] min-w-[165px]">
         <img 
           src="/spider-woman-hanging.svg" 
           alt="Spider-Woman Hanging Upside Down" 
@@ -442,36 +459,48 @@ export default function App() {
    </nav>
   </header>
       {/* Mobile Toggle Dropdown */}
+      {/* Mobile Right-Side Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-card border-b-2 border-border flex flex-col md:hidden z-40 shadow-lg">
-          <ul className="flex flex-col">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <li key={item.id}>
-                  <a 
-                    href={`#${item.id}`} 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className={`group flex flex-col justify-center border-b border-border px-6 py-4 transition-colors ${
-                      isActive ? 'bg-primary/15 border-l-4 border-l-primary' : 'hover:bg-primary/10'
-                    }`}
-                  >
-                    <span className={`font-display text-[9px] tracking-widest ${
-                      isActive ? 'text-primary font-black' : 'text-primary/70'
-                    }`}>
-                      {item.number}
-                    </span>
-                    <span className={`font-display text-sm uppercase leading-none tracking-wide ${
-                      isActive ? 'text-foreground font-black' : 'text-foreground/90'
-                    }`}>
-                      {item.label}
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <>
+          {/* Backdrop overlay for closing the drawer on tap outside */}
+          <div 
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 top-16 z-40 bg-black/60 backdrop-blur-xs md:hidden"
+          />
+          {/* Right-aligned solid panel drawer */}
+          <div 
+            style={{ backgroundColor: '#120708', zIndex: 1000 }}
+            className="fixed top-16 right-0 bottom-0 w-64 max-w-[80vw] flex flex-col md:hidden overflow-y-auto pb-10 border-l border-border/20 shadow-2xl animate-drawer-slide-in-right"
+          >
+            <ul className="flex flex-col">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <li key={item.id}>
+                    <a 
+                      href={`#${item.id}`} 
+                      onClick={() => setMobileMenuOpen(false)} 
+                      className={`group flex flex-col justify-center border-b border-border/40 px-6 py-4 transition-colors ${
+                        isActive ? 'bg-primary/15 border-l-4 border-l-primary' : 'hover:bg-primary/10'
+                      }`}
+                    >
+                      <span className={`font-display text-[9px] tracking-widest ${
+                        isActive ? 'text-primary font-black' : 'text-primary/70'
+                      }`}>
+                        {item.number}
+                      </span>
+                      <span className={`font-display text-sm uppercase leading-none tracking-wide ${
+                        isActive ? 'text-foreground font-black' : 'text-foreground/90'
+                      }`}>
+                        {item.label}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </>
       )}
       {/* Main Content Sections */}
       <main>
@@ -875,7 +904,7 @@ export default function App() {
 
      {/* Right Column: Spider-Gwen typing on laptop cutout */}
      <div className="flex justify-center md:justify-end reveal is-visible" style={{ transitionDelay: "200ms" }}>
-      <div className="relative w-full max-w-[260px] md:max-w-[280px] lg:max-w-[320px]">
+       <div className="relative w-full max-w-[130px] sm:max-w-[180px] md:max-w-[280px] lg:max-w-[320px]">
 
        <div className="absolute inset-0 bg-[#ee304a]/5 rounded-full filter blur-3xl -z-10 animate-pulse"></div>
 

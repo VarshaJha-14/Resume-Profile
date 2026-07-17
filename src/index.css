@@ -1322,3 +1322,70 @@
   box-shadow: 0px 0px 0px #000, 0 0 10px rgba(238, 48, 74, 0.3);
   transform: translate(4px, 4px);
 }
+
+/* Mobile Responsive Utility Class */
+@media (max-width: 768px) {
+  .mobile-responsive-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    width: 100% !important;
+  }
+}
+
+/* Home Corner Webs & Hanging Spider-Woman Mobile Scaling */
+@media (max-width: 768px) {
+  section#home svg.pointer-events-none {
+    width: 100px !important;
+    height: 100px !important;
+    opacity: 0.22 !important;
+  }
+  .hanging-spider {
+    min-width: 100px !important;
+    width: 21vw !important;
+    left: 8px !important;
+    top: 0px !important;
+  }
+}
+
+/* iOS Safari Compositor Card Bleeding Fix */
+.floating-card-icon,
+.card-watermark {
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+/* Hide front card assets instantly on hover/flip to prevent composite layout leakage */
+.flip-card:hover .floating-card-icon,
+.flip-card:hover .card-watermark {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+/* Mobile iPod Drawer Drawer Slide-up Animation */
+@keyframes drawer-slide-up {
+  from {
+    transform: translateY(80px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.animate-drawer-slide-up {
+  animation: drawer-slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Mobile Right-Side Menu Drawer Slide-in Animation */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.animate-drawer-slide-in-right {
+  animation: slide-in-right 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
