@@ -313,7 +313,8 @@ export default function App() {
       {/* Full iPod Player Card (Only visible on desktop) */}
       <div 
         onClick={togglePlay}
-        className="fixed bottom-8 right-8 z-50 flex-col items-center pointer-events-auto hidden md:flex"
+        style={{ bottom: '24px', right: '24px' }}
+        className="fixed z-50 flex-col items-center pointer-events-auto hidden md:flex"
       >
 
         {/* Short Web Strand Line (Hidden on mobile to save vertical space) */}
@@ -1023,13 +1024,7 @@ export default function App() {
                 <path d="M7 17 17 7" />
               </svg>
             </a>
-            <a className="inline-flex items-center gap-1 rounded bg-black px-3 py-1.5 font-display text-xs uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5" href="https://github.com/VarshaJha-14/Maison-PM-case-study/tree/main" target="_blank" rel="noopener noreferrer">
-              GitHub
-              <svg aria-hidden="true" className="lucide lucide-arrow-up-right size-3.5" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 7h10v10" />
-                <path d="M7 17 17 7" />
-              </svg>
-            </a>
+
           </div>
         </div>
       </CardFlip>
@@ -1105,7 +1100,7 @@ export default function App() {
                 <path d="M7 17 17 7" />
               </svg>
             </a>
-            <a className="inline-flex items-center gap-1 rounded bg-black px-3 py-1.5 font-display text-xs uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5" href="https://maison-ai-stylist.lovable.app/" target="_blank" rel="noopener noreferrer">
+            <a className="inline-flex items-center gap-1 rounded bg-black px-3 py-1.5 font-display text-xs uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5" href="https://focusbuddy-wbo3.onrender.com/" target="_blank" rel="noopener noreferrer">
               Prototype
               <svg aria-hidden="true" className="lucide lucide-arrow-up-right size-3.5" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 7h10v10" />
@@ -1262,13 +1257,7 @@ export default function App() {
                 <path d="M7 17 17 7" />
               </svg>
             </a>
-            <a className="inline-flex items-center gap-1 rounded bg-black px-3 py-1.5 font-display text-xs uppercase tracking-wide text-white transition-transform hover:-translate-y-0.5" href="https://github.com/VarshaJha-14/Maison-PM-case-study/tree/main" target="_blank" rel="noopener noreferrer">
-              GitHub
-              <svg aria-hidden="true" className="lucide lucide-arrow-up-right size-3.5" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 7h10v10" />
-                <path d="M7 17 17 7" />
-              </svg>
-            </a>
+
           </div>
         </div>
       </CardFlip>
